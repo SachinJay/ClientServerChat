@@ -1,6 +1,8 @@
 package client;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -26,6 +28,33 @@ public class ServerThread implements Runnable
 	public void run()
 	{
 		// TODO Implement chat
+		try
+		{
+			writer = new PrintWriter(socket.getOutputStream(),true);
+			serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			userReader = new BufferedReader(new InputStreamReader(System.in));
+			
+			while(!socket.isClosed())
+			{
+				if(serverReader.ready())
+				{
+					String serverInput = serverReader.readLine();
+					if(serverInput != null)
+					{
+						System.out.println(serverInput);						
+					}
+				}
+				if(userReader.ready())
+				{
+					writer.println(">"+ this.userName+": "+userReader.readLine());
+				}
+			}
+		} 
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
