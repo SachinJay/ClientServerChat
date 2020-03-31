@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 import shared.Constants;
 
@@ -22,6 +23,21 @@ public class Server
 		{
 			System.out.println(Constants.SERV_ERR_MSG);
 			e.printStackTrace();
+		}
+		
+		while(true)
+		{
+			
+			try
+			{
+				// Listens for connections on this port and accepts them when connected
+				// After acceptance, creates and returns new socket
+				Socket socket = serverSocket.accept();
+			} catch (IOException e)
+			{
+				System.out.println(Constants.ACCEP_ERR_MSG);
+				e.printStackTrace();
+			}
 		}
 		
 		//When Client.java is run, it will connect to the server 
