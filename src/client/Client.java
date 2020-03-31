@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 import shared.Constants;
 
@@ -15,6 +16,10 @@ public class Client
 	{
 		//Socket that client connects to
 		Socket socket = null;
+		System.out.println("Input user name");
+		Scanner scan = new Scanner(System.in);
+		String name = scan.nextLine();
+		scan.close();
 		try
 		{
 			socket = new Socket(Constants.HOST_NAME, Constants.PORT);
@@ -22,7 +27,7 @@ public class Client
 			//TODO why?
 			Thread.sleep(1000);
 			
-			ServerThread serverThread = new ServerThread(socket);
+			ServerThread serverThread = new ServerThread(socket,name);
 			Thread thread = new Thread(serverThread);
 			thread.start();
 		}
