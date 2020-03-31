@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import shared.Constants;
 
@@ -52,6 +53,7 @@ public class Server
 	
 	public static void acceptClients(ServerSocket serverSocket)
 	{
+		ArrayList<ClientThread> clients = new ArrayList<>();
 		while(true)
 		{
 			try
@@ -59,7 +61,15 @@ public class Server
 				// Listens for connections on this port and accepts them when connected
 				// After acceptance, creates and returns new socket
 				Socket socket = serverSocket.accept();
-			} catch (IOException e)
+				ClientThread clientThread = new ClientThread(socket);
+				
+				//Can take in clientThread because clientThread is runnable
+				Thread thread = new Thread(clientThread);
+				thread.start();
+			
+				clients.add(clientThread);
+			} 
+			catch (IOException e)
 			{
 				System.out.println(Constants.ACCEP_ERR_MSG);
 				e.printStackTrace();
