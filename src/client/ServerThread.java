@@ -5,7 +5,7 @@ import java.net.Socket;
 public class ServerThread implements Runnable
 {
 	/**
-	 * The socket returned when server accepts a client
+	 * The socket related to this client
 	 */
 	private Socket socket; 
 	
