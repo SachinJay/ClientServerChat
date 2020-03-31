@@ -18,6 +18,13 @@ public class Client
 		try
 		{
 			socket = new Socket(Constants.HOST_NAME, Constants.PORT);
+			
+			//TODO why?
+			Thread.sleep(1000);
+			
+			ServerThread serverThread = new ServerThread(socket);
+			Thread thread = new Thread(serverThread);
+			thread.start();
 		}
 		catch (UnknownHostException e)
 		{
@@ -27,6 +34,10 @@ public class Client
 		catch (IOException e)
 		{
 			System.out.println(Constants.SERV_ERR_MSG);
+			e.printStackTrace();
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
