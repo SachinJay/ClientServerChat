@@ -19,26 +19,15 @@ public class Server
 		try
 		{
 			serverSocket = new ServerSocket(Constants.PORT);
-		} catch (IOException e)
+			acceptClients(serverSocket);
+		} 
+		catch (IOException e)
 		{
 			System.out.println(Constants.SERV_ERR_MSG);
 			e.printStackTrace();
 		}
 		
-		while(true)
-		{
-			
-			try
-			{
-				// Listens for connections on this port and accepts them when connected
-				// After acceptance, creates and returns new socket
-				Socket socket = serverSocket.accept();
-			} catch (IOException e)
-			{
-				System.out.println(Constants.ACCEP_ERR_MSG);
-				e.printStackTrace();
-			}
-		}
+		
 		
 		//When Client.java is run, it will connect to the server 
 		//socket above, this below line waits and listens for this event
@@ -58,6 +47,25 @@ public class Server
 //		PrintWriter pr = new PrintWriter(socket.getOutputStream());
 //		pr.println("This is a test message from the server");
 //		pr.flush();
+	
+	}
+	
+	public static void acceptClients(ServerSocket serverSocket)
+	{
+		while(true)
+		{
+			try
+			{
+				// Listens for connections on this port and accepts them when connected
+				// After acceptance, creates and returns new socket
+				Socket socket = serverSocket.accept();
+			} catch (IOException e)
+			{
+				System.out.println(Constants.ACCEP_ERR_MSG);
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 
