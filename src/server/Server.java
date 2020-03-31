@@ -12,6 +12,8 @@ import shared.Constants;
 
 public class Server
 {
+	protected static ArrayList<ClientThread> clients;
+	
 	public static void main(String[] args) 
 	{
 		//socket that the server connects to, same as the socket
@@ -53,7 +55,7 @@ public class Server
 	
 	public static void acceptClients(ServerSocket serverSocket)
 	{
-		ArrayList<ClientThread> clients = new ArrayList<>();
+		clients = new ArrayList<>();
 		while(true)
 		{
 			try
